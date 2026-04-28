@@ -13,12 +13,15 @@ app.prepare().then(() => {
   const httpServer = createServer(handler);
 
   const io = new Server(httpServer);
-
   io.on("connection", (socket) => {
     // ...
     console.log("someone connected");
     
     io.emit("message", "Hello from the server!");
+  });
+
+  io.on("message", (data) => {
+    console.log("Received message from client:", data);
   });
 
   httpServer
@@ -30,3 +33,4 @@ app.prepare().then(() => {
       console.log(`> Ready on http://${hostname}:${port}`);
     });
 });
+
