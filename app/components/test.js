@@ -16,13 +16,19 @@ export default function Test() {
     socket.on("message", (data) => {
       console.log("Received message from server:", data);
       
+      console.log("before thank you");
       socket.emit("thankYou", "Hello we recieved your message!");
+      console.log("after thank you");
     });
 
     socket.onAny((event, ...args) => {
       console.log(`client recieved event: "${event}"`, args);
     });
 
+    // this is to prevent the StrictMode from connecting twice and creating multiple listeners
+    return () => {
+      socket.disconnect();
+    };
   },[])
 
 
