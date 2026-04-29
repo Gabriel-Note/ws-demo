@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-console.log(io);
 console.log("testese");
 export default function Test() {
 
@@ -14,10 +13,12 @@ export default function Test() {
       console.log(socket.id);
       
     });
-
     socket.on("message", (data) => {
       console.log("Received message from server:", data);
+      
+      socket.emit("thankYou", "Hello we recieved your message!");
     });
+
 
   },[])
 
