@@ -14,16 +14,18 @@ app.prepare().then(() => {
 
   const io = new Server(httpServer);
   io.on("connection", (socket) => {
-
     console.log("someone connected");
-    
+
     socket.emit("message", "Hello from the server!");
 
-    socket.on("thankYou", data => {
+    socket.on("thankYou", (data) => {
       console.log("Received message from client:", data);
     });
-  });
 
+    socket.onAny((event, ...args) => {
+      console.log(`server recieved event: "${event}"`, args);
+    });
+  });
 
   httpServer
     .once("error", (err) => {
@@ -34,4 +36,3 @@ app.prepare().then(() => {
       console.log(`> Ready on http://${hostname}:${port}`);
     });
 });
-

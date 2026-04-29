@@ -19,6 +19,9 @@ export default function Test() {
       socket.emit("thankYou", "Hello we recieved your message!");
     });
 
+    socket.onAny((event, ...args) => {
+      console.log(`client recieved event: "${event}"`, args);
+    });
 
   },[])
 
