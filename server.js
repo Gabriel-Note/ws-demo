@@ -23,7 +23,14 @@ app.prepare().then(() => {
     });
 
     socket.onAny((event, ...args) => {
+      console.log("onAny");
       console.log(`server recieved event: "${event}"`, args);
+      
+      console.log(socket.id);
+      
+    });
+    socket.on("joinRoom", (room) => {
+      socket.join(room);
     });
   });
 
