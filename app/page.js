@@ -1,7 +1,7 @@
 "use client";
 
 import Test from "./components/test";
-import ConnectSocket from "./components/connectsocket";
+import { getSocket } from "./components/connectsocket"; // ← same shared socket
 import { useState } from "react";
 console.log("yesyesyes");
 
@@ -10,8 +10,9 @@ export default function Home() {
 
   const handleMessageButton = (e) => {
     e.preventDefault();
-    ConnectSocket.emit("message", message);
-    console.log("we pressed the button and sent a message");
+    const socket = getSocket(); // ← reuses existing connection, no new one
+    socket.emit("message", message);
+    console.log("sent:", message);
   };
 
   return (

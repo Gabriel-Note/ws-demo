@@ -1,36 +1,27 @@
+// test.js ✅
 "use client";
+import { useEffect } from "react";
+import { getSocket, disconnectSocket } from "./connectsocket"; // ← use shared socket
 
-import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
-console.log("testese");
 export default function Test() {
-
   useEffect(() => {
-    const socket = io("http://localhost:4000");
+    const socket = getSocket(); // ← no new connection, reuses existing one
 
     socket.on("connect", () => {
-      console.log("connected to server here");
-      console.log(socket.id);
-      
+      console.log("connected:", socket.id);
     });
+
     socket.on("message", (data) => {
-      console.log("Received message from server:", data);
-      
-      console.log("before thank you");
-      socket.emit("thankYou", "Hello we recieved your message!");
-      console.log("after thank you");
+      console.log("Received:", data);
+      socket.emit("thankYou", "received!");
     });
 
-    socket.onAny((event, ...args) => {
-      console.log(`client recieved event: "${event}"`, args);
-    });
-
-    // this is to prevent the StrictMode from connecting twice and creating multiple listeners
     return () => {
-      socket.disconnect();
+      socket.off("message");
+      socket.off("connect");
+      disconnectSocket(); // ← handles StrictMode safely
     };
-  },[])
-
+  }, []);
 
   return (
     <div>
