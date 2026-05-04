@@ -14,13 +14,94 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: linear-gradient(135deg, #154249, #141446);
+    --text: "Copperplate", fantasy, serif;
   }
 }
 
 body {
+  min-height: 100vh;
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
+}
+.Label {
+  font-family: "Source Code Pro", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  word-spacing: 0px;
+  text-transform: none;
+  text-decoration: none;
+  text-align: center;
+  color: #0a1a40;
+  text-shadow: 0 0 6px rgb(4 212 250);
+  margin-bottom: 5px;
+}
+#currentTurnLabel {
+  color: cyan;
+}
+h1 {
+  font-family: var(--text);
+  color: #0a1a40;
+  text-shadow: 0 0 30px rgb(4 212 250);
+  letter-spacing: 0.05em;
+  margin-bottom: 0px;
+}
+
+.board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 90px;
+  flex-wrap: wrap;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 30px);
+  grid-template-rows: repeat(10, 30px);
+  gap: 5px;
+  text-align: center;
+}
+
+.cell {
+  border-radius: 20%;
+  border-style: solid;
+  border-color: #17bcc5;
+  border-width: 1px;
+}
+.cell.EMPTY {
+  background-color: #141446;
+}
+.cell.EMPTY.highlight {
+  background-color: rgb(197 20 225);
+  border-style: solid;
+  border-color: rgba(196, 40, 188, 0);
+}
+.cell.EMPTY.preview,
+.cell.EMPTY.preview:hover {
+  background-color: rgb(14, 222, 45);
+  transform: none;
+  /*         text-align: center;
+ */
+}
+.cell.EMPTY:hover {
+  background-color: rgb(196, 40, 188);
+  transform: scale(1.2);
+  border-color: #17bcc5;
+  border-style: solid;
+}
+.cell.MISS {
+  background-color: aqua;
+}
+.cell.HIT {
+  background-color: rgb(164, 16, 16);
+  border-color: chocolate;
 }

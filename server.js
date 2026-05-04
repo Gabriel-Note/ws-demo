@@ -26,11 +26,14 @@ app.prepare().then(() => {
         waitingPlayer = socket;
         console.log("1 player is now waiting to join a room");
       } else if (waitingPlayer.id !== socket.id) {
-        const roomId = `hardcoded-room-id`; // in production, generate a unique ID
+        const roomId = `room-with-${waitingPlayer.id}-and-${socket.id}`; // create a unique room ID based on both players' socket IDs
+
         waitingPlayer.join(roomId);
         socket.join(roomId); // <-- second player joins the same room
+
         waitingPlayer.emit("gameStart", { role: "player1", roomId });
         socket.emit("gameStart", { role: "player2", roomId });
+        
         waitingPlayer = null; // reset for the next pair of players
       } else {
         console.log("same Id i suppose");
@@ -38,7 +41,6 @@ app.prepare().then(() => {
     });
 
     // Testing events =====================================================
-    socket.emit("message", "Hello from the server!");
     socket.on("thankYou", (data) => {
       console.log("Received message from client:", data);
     });

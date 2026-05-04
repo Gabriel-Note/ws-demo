@@ -19,9 +19,8 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Battleship Websocket Demo</h1>
-      <Test />
-      <form onSubmit={handleMessageButton}>
+      
+      {/* <form onSubmit={handleMessageButton}>
         <input
           type="text"
           placeholder="Enter message"
@@ -29,8 +28,20 @@ export default function Home() {
           onChange={(e) => setMessage(e.target.value)}
         />
         <button type="submit">Send</button>
-      </form>
-      <Lobby />
+      </form> */}
+      <div>
+        <h1>BATTLESHIP</h1>
+        <p>Naval Combat Simulation System 2.306</p>
+        <button onClick={handleMessageButton}>New Game</button>
+        <div className="Label">
+          Current turn:
+          <span id="currentTurnLabel"></span>
+        </div>
+        <div className="Label" id="currentModeLabel"></div>
+        <div className="board-container">
+          <Lobby />
+        </div>
+      </div>
     </div>
   );
 }
