@@ -1,7 +1,7 @@
 // app/page.js — lobby where players click "Join Game"
 "use client";
 import { useEffect, useState } from "react";
-import { getSocket } from "./connectsocket";
+import { getSocket } from "./socketStuff/connectsocket";
 import Player1View from "./playerOneView";
 import Player2View from "./playerTwoView";
 

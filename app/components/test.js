@@ -1,7 +1,7 @@
 // test.js ✅
 "use client";
 import { useEffect } from "react";
-import { getSocket, disconnectSocket } from "./connectsocket"; // ← use shared socket
+import { getSocket, disconnectSocket } from "./socketStuff/connectsocket"; // ← use shared socket
 
 export default function Test() {
   useEffect(() => {

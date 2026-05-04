@@ -1,7 +1,7 @@
 "use client";
 
 import Test from "./components/test";
-import { getSocket } from "./components/connectsocket"; // ← same shared socket
+import { getSocket } from "./components/socketStuff/connectsocket"; // ← same shared socket
 import { useState } from "react";
 import Lobby from "./components/lobby";
 console.log("yesyesyes");
