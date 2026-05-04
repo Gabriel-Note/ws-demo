@@ -1,4 +1,5 @@
 import { getIO } from "./ioServer.js";
+import matchMaking from "./matchMaking.js";
 
 export function serverTest() {
   const io = getIO();
@@ -9,24 +10,26 @@ export function serverTest() {
     // console.log("total:", io.engine.clientsCount); // ← should be 1 with one tab open
     console.log("someone connected");
 
-    socket.on("joinGame", () => {
-      if (!waitingPlayer) {
-        waitingPlayer = socket;
-        console.log("1 player is now waiting to join a room");
-      } else if (waitingPlayer.id !== socket.id) {
-        const roomId = `room-with-${waitingPlayer.id}-and-${socket.id}`; // create a unique room ID based on both players' socket IDs
+    matchMaking(socket); 
 
-        waitingPlayer.join(roomId);
-        socket.join(roomId); // <-- second player joins the same room
+    // socket.on("joinGame", () => {
+    //   if (!waitingPlayer) {
+    //     waitingPlayer = socket;
+    //     console.log("1 player is now waiting to join a room");
+    //   } else if (waitingPlayer.id !== socket.id) {
+    //     const roomId = `room-with-${waitingPlayer.id}-and-${socket.id}`; // create a unique room ID based on both players' socket IDs
 
-        waitingPlayer.emit("gameStart", { role: "player1", roomId });
-        socket.emit("gameStart", { role: "player2", roomId });
+    //     waitingPlayer.join(roomId);
+    //     socket.join(roomId); // <-- second player joins the same room
 
-        waitingPlayer = null; // reset for the next pair of players
-      } else {
-        console.log("same Id i suppose");
-      }
-    });
+    //     waitingPlayer.emit("gameStart", { role: "player1", roomId });
+    //     socket.emit("gameStart", { role: "player2", roomId });
+
+    //     waitingPlayer = null; // reset for the next pair of players
+    //   } else {
+    //     console.log("same Id i suppose");
+    //   }
+    // });
 
     // Testing events =====================================================
     socket.on("thankYou", (data) => {

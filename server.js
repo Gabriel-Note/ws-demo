@@ -3,7 +3,7 @@ import next from "next";
 import { Server } from "socket.io";
 import { log } from "node:console";
 import { setIO } from "./app/components/serverStuff/ioServer.js";
-import { serverTest } from "./app/components/serverStuff/serverTest.js";
+import { serverTest } from "./app/components/serverStuff/initServerListeners.js";
 
 const dev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
